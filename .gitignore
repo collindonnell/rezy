@@ -1,0 +1,4 @@
+output/
+personal_info.yaml
+.DS_Store
+gemfile.lock

@@ -1,0 +1,59 @@
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1><%= resume_data["name"] %></h1>
+    <% unless resume_data["contact_info"].nil? %>
+      <div style="display: flex; gap: 0.5rem;">
+        <% resume_data["contact_info"].each do |value| %>
+          <span><%= value %></span>
+          <% unless resume_data["contact_info"].last == value %>
+            &#x2022;
+          <% end%>
+        <% end %>
+      </div>
+    <% end %>
+  </header>
+
+  <section>
+    <h2>Summary</h2>
+    <p><%= resume_data["summary"] %></p>
+  </section>
+
+  <h2>Skills</h2>
+  <table class="skills-table">
+    <% resume_data["skills"].each do |section| %>
+      <tr>
+        <th><%= section["title"] %></th>
+        <td><%= section["items"].join(", ") %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <h2>Experience</h2>
+  <% resume_data["experience"].each do |job| %>
+    <div class="experience-header">
+      <div class="left">
+        <span class="company"><%= job["company"] %></span> |
+        <span class="role"><%= job["role"] %></span>
+      </div>
+      <div class="right">
+        <span class="location"><%= job["location"] %></span> |
+        <% start_date = job["start"]; end_date = job["end"] %>
+        <% if start_date == end_date %>
+          <span class="dates"><%= job["start"] %></span>
+        <% else %>
+          <span class="dates"><%= job["start"] %>-<%= job["end"] %></span>
+        <% end %>
+      </div>
+    </div>
+    <ul>
+      <% job["bullets"].each do |bullet| %>
+        <li><%= bullet %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</body>
+</html>

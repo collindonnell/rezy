@@ -2,10 +2,11 @@ require "yaml"
 require "erb"
 require "fileutils"
 
-module Resume
+module Rezy
   class Generator
-    def initialize(data_file: "resume.yaml", output_dir: "output", formats: [:html, :pdf])
+    def initialize(data_file: "resume.yaml", template_dir: "template", output_dir: "output", formats: [:html, :pdf])
       @data_file = data_file
+      @template_dir = template_dir
       @output_dir = output_dir
       @formats = formats
     end
@@ -22,8 +23,8 @@ module Resume
       html_output = render_template(resume_data)
 
       File.write(File.join(@output_dir, "resume.html"), html_output)
-      FileUtils.cp(File.join("template", "style.css"), @output_dir)
-      
+      FileUtils.cp(File.join(@template_dir, "style.css"), @output_dir)
+
       puts "\u2705 HTML generated: #{@output_dir}/resume.html"
     end
     
@@ -38,14 +39,13 @@ module Resume
     end
     
     def render_template(resume_data)
-      template_path = File.join("template", "template.html.erb")
+      template_path = File.join(@template_dir, "template.html.erb")
       template = ERB.new(File.read(template_path))
       result = template.result_with_hash(resume_data: resume_data)
       result.gsub(/\n\s*\n/, "\n").strip.squeeze("\n")
     end
     
     def generate_pdf
-      # Ensure HTML exists for PDF generation
       generate_html unless File.exist?(File.join(@output_dir, "resume.html"))
       
       begin

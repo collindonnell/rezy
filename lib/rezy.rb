@@ -1,8 +1,8 @@
-require_relative "resume/version"
-require_relative "resume/generator"
-require_relative "resume/cli"
+require_relative "rezy/version"
+require_relative "rezy/generator"
+require_relative "rezy/cli"
 
-module Resume
+module Rezy
   class Error < StandardError; end
   GEM_ROOT = File.expand_path("..", __dir__)
   TEMPLATES_DIR = File.join(GEM_ROOT, "templates")

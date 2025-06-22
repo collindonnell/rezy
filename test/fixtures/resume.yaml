@@ -1,0 +1,35 @@
+name: Johnny Appleseed
+contact_info:
+  - test@example.com
+  - 555-555-5555
+  - Portland, OR
+summary: Programmer with a passion for imagineering delightful user experiences.
+skills:
+  Languages:
+    - Ruby
+    - Swift
+    - Python
+  Frameworks:
+    - Ruby on Rails
+    - React
+    - UIKit
+  Tools:
+    - Git
+    - Docker
+experience:
+  - company: Acme Corp
+    role: Software Engineer
+    start: "2022"
+    end: Present
+    bullets:
+      - Created amazing software features
+      - Led team of developers
+      - Developed high-performance applications
+  - company: Lumen Technologies
+    role: Macrodata Refinement Engineer
+    start: "2020"
+    end: "2022"
+    bullets:
+      - Refined macrodata processes
+      - Improved data accuracy
+      - Collaborated with cross-functional teams

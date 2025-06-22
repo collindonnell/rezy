@@ -1,11 +1,12 @@
 require_relative "test_helper"
 require "nokogiri"
 
-class Resume::GeneratorTest < Minitest::Test
+class Rezy::GeneratorTest < Minitest::Test
   def setup
     @test_output_dir = "tmp/test_output"
-    @generator = Resume::Generator.new(
+    @generator = Rezy::Generator.new(
       data_file: "test/fixtures/resume.yaml",
+      template_dir: "test/fixtures/template",
       output_dir: @test_output_dir
     )
     FileUtils.mkdir_p(@test_output_dir)
@@ -50,7 +51,7 @@ class Resume::GeneratorTest < Minitest::Test
     header = doc.css('header').first
     assert header, "Missing header element"
     assert_includes header.text, "Portland, OR"
-    assert_includes header.text, "johnny.appleseed@icloud.com"
+    assert_includes header.text, "test@example.com"
     assert_includes header.text, "555-555-5555"
   end
 
@@ -64,7 +65,7 @@ class Resume::GeneratorTest < Minitest::Test
     assert summary_section, "Missing summary section"
     
     # Summary content
-    assert_includes summary_section.text, "code gardener"
+    assert_includes summary_section.text, "Programmer with a passion for imagineering delightful user experiences"
   end
 
   def test_skills_table
@@ -80,7 +81,7 @@ class Resume::GeneratorTest < Minitest::Test
     table_text = skills_table.text
     assert_includes table_text, "Languages"
     assert_includes table_text, "Frameworks"
-    assert_includes table_text, "Soft Skills"
+    assert_includes table_text, "Tools"
     
     # Check for specific skills
     assert_includes table_text, "Swift"
@@ -103,10 +104,10 @@ class Resume::GeneratorTest < Minitest::Test
     
     # Check for specific companies
     all_text = doc.text
-    assert_includes all_text, "Acme Inc."
-    assert_includes all_text, "Test Engineer"
+    assert_includes all_text, "Acme Corp"
+    assert_includes all_text, "Software Engineer"
     assert_includes all_text, "Lumen Technologies"
-    assert_includes all_text, "Macrodata Refinery Engineer"
+    assert_includes all_text, "Macrodata Refinement Engineer"
     
     # Check for dates
     assert_includes all_text, "2022"

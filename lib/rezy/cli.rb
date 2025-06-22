@@ -1,6 +1,6 @@
 require "optparse"
 
-class Resume::CLI
+class Rezy::CLI
   def run(argv)
     parse_global_options
   end
@@ -9,14 +9,14 @@ class Resume::CLI
 
   def parse_global_options
     global_parser = OptionParser.new do |opts|
-      opts.banner = "Usage: resume <command> [options]"
+      opts.banner = "Usage: rezy <command> [options]"
       opts.separator ""
       opts.separator "Commands:"
       opts.separator "    init      Initialize a new resume project"
       opts.separator "    generate  Generate resume from existing project"
       opts.separator ""
       opts.on("-v", "--version", "Show version") do
-        puts "Resume Generator #{Resume::VERSION}"
+        puts "Rezy #{Rezy::VERSION}"
         exit
       end
       opts.on("-h", "--help", "Show this help") do
@@ -81,11 +81,11 @@ class Resume::CLI
     project_dir = options[:directory]
     mkdir_p(project_dir) unless Dir.exist?(project_dir)
 
-    source_template = File.join(Resume::TEMPLATES_DIR, options[:template])
+    source_template = File.join(Rezy::TEMPLATES_DIR, options[:template])
     dest_templates_path = File.join(project_dir, "templates")
     FileUtils.cp_r(source_template, dest_templates_path) if Dir.exist?(source_template)
 
-    source_data_file = File.join(Resume::GEM_ROOT, "data/resume.yaml")
+    source_data_file = File.join(Rezy::GEM_ROOT, "data/resume.yaml")
     FileUtils.cp(source_data_file, project_dir) if File.exist?(source_data_file)
     
     puts "Project initialized with template '#{options[:template]}' in directory '#{project_dir}'"
@@ -103,7 +103,7 @@ class Resume::CLI
     }
     
     OptionParser.new do |opts|
-      opts.banner = "Usage: resume generate [options]"
+      opts.banner = "Usage: rezy generate [options]"
       opts.separator ""
       opts.separator "Generate resume HTML and PDF from YAML data"
       opts.separator ""
@@ -130,7 +130,7 @@ class Resume::CLI
   end
 
   def generate_with_options(options)
-    generator = Resume::Generator.new(
+    generator = Rezy::Generator.new(
       data_file: options[:data_file],
       output_dir: options[:output_dir],
       formats: options[:formats]

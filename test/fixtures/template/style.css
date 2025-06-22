@@ -1,0 +1,76 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 24pt;
+  font-size: 0.8em;
+}
+
+h1 {
+  color: #3F8D57;
+  font-size: 2.5em;
+  margin-bottom: 8pt;
+}
+
+h2 {
+  font-size: 1.4em;
+  text-transform: uppercase;
+  margin-top: 1.4em;
+  padding-top: 8px;
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 0.25em;
+}
+
+.experience-header .company, .dates {
+  font-weight: bold;
+}
+
+.experience-header .right {
+  white-space: nowrap;
+  color: #666;
+}
+
+.skills-table {
+  font-size: 1.0em;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.skills-table th {
+  text-align: left;
+  padding-right: 1rem;
+  vertical-align: top;
+}
+
+.skills-table td {
+  padding-bottom: 0.25rem;
+}
+
+/* Print-specific styles to control margins and remove headers/footers */
+@page {
+  size: A4;
+  margin: 0; /* Remove all default margins */
+  @top-left { content: ""; }
+  @top-center { content: ""; }
+  @top-right { content: ""; }
+  @bottom-left { content: ""; }
+  @bottom-center { content: ""; }
+  @bottom-right { content: ""; }
+}
+
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    margin: 0 !important; /* Override any browser defaults */
+    padding: 0.5in !important; /* Set our own consistent margins */
+  }
+  
+  * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+}

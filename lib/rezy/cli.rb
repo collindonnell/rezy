@@ -82,7 +82,7 @@ class Rezy::CLI
     mkdir_p(project_dir) unless Dir.exist?(project_dir)
 
     source_template = File.join(Rezy::TEMPLATES_DIR, options[:template])
-    dest_templates_path = File.join(project_dir, "templates")
+    dest_templates_path = File.join(project_dir, "template")
     FileUtils.cp_r(source_template, dest_templates_path) if Dir.exist?(source_template)
 
     source_data_file = File.join(Rezy::GEM_ROOT, "data/resume.yaml")

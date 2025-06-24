@@ -52,21 +52,21 @@ class Rezy::CLI
       template: "simple",
       directory: "."
     }
-    
+
     OptionParser.new do |opts|
       opts.banner = "Usage: resume init [options]"
       opts.separator ""
       opts.separator "Initialize a new resume project with sample data and template"
       opts.separator ""
-      
+
       opts.on("-t", "--template NAME", "Template to use (default: simple)") do |template|
         init_options[:template] = template
       end
-      
+
       opts.on("-d", "--directory DIR", "Directory to create project in (default: current)") do |dir|
         init_options[:directory] = dir
       end
-      
+
       opts.on("-h", "--help", "Show this help") do
         puts opts
         exit
@@ -87,39 +87,39 @@ class Rezy::CLI
 
     source_data_file = File.join(Rezy::GEM_ROOT, "data/resume.yaml")
     FileUtils.cp(source_data_file, project_dir) if File.exist?(source_data_file)
-    
+
     puts "Project initialized with template '#{options[:template]}' in directory '#{project_dir}'"
-  rescue StandardError => e
+  rescue => e
     puts "Error initializing project: #{e.message}"
     exit 1
   end
 
   def handle_generate_command
-      # Generate command options (your existing code)
+    # Generate command options (your existing code)
     generate_options = {
       data_file: "resume.yaml",
       output_dir: "output",
       formats: [:html, :pdf]
     }
-    
+
     OptionParser.new do |opts|
       opts.banner = "Usage: rezy generate [options]"
       opts.separator ""
       opts.separator "Generate resume HTML and PDF from YAML data"
       opts.separator ""
-      
+
       opts.on("-d", "--data FILE", "YAML data file (default: resume.yaml)") do |file|
         generate_options[:data_file] = file
       end
-      
+
       opts.on("-o", "--output DIR", "Output directory (default: output)") do |dir|
         generate_options[:output_dir] = dir
       end
-      
+
       opts.on("-f", "--formats FORMATS", Array, "Output formats: html,pdf (default: html,pdf)") do |formats|
         generate_options[:formats] = formats.map(&:to_sym)
       end
-      
+
       opts.on("-h", "--help", "Show this help") do
         puts opts
         exit
@@ -136,7 +136,7 @@ class Rezy::CLI
       formats: options[:formats]
     )
     generator.generate
-  rescue StandardError => e
+  rescue => e
     puts "Error generating resume: #{e.message}"
     exit 1
   end

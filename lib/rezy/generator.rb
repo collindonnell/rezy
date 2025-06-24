@@ -17,7 +17,7 @@ module Rezy
       generate_html if @formats.include?(:html)
       generate_pdf if @formats.include?(:pdf) && playwright_available?
     end
-    
+
     def generate_html
       resume_data = load_data
       html_output = render_template(resume_data)
@@ -27,9 +27,9 @@ module Rezy
 
       puts "\u2705 HTML generated: #{@output_dir}/resume.html"
     end
-    
+
     private
-    
+
     def load_data
       if File.exist?(@data_file)
         YAML.load_file(@data_file)
@@ -37,21 +37,21 @@ module Rezy
         raise "Data file not found: #{@data_file}"
       end
     end
-    
+
     def render_template(resume_data)
       template_path = File.join(@template_dir, "template.html.erb")
       template = ERB.new(File.read(template_path))
       result = template.result_with_hash(resume_data: resume_data)
       result.gsub(/\n\s*\n/, "\n").strip.squeeze("\n")
     end
-    
+
     def generate_pdf
       generate_html unless File.exist?(File.join(@output_dir, "resume.html"))
-      
+
       begin
-        html_file = File.absolute_path(File.join(@output_dir, 'resume.html'))
-        pdf_file = File.join(@output_dir, 'resume.pdf')
-        
+        html_file = File.absolute_path(File.join(@output_dir, "resume.html"))
+        pdf_file = File.join(@output_dir, "resume.pdf")
+
         # Try using Chrome directly (if available)
         chrome_path = `which google-chrome`.strip
         chrome_path = `which chromium-browser`.strip if chrome_path.empty?
@@ -74,7 +74,7 @@ module Rezy
         puts "⚠️  PDF generation failed: #{e.message}"
       end
     end
-    
+
     def playwright_available?
       # For now, check if Chrome is available instead
       system("test -f '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'")

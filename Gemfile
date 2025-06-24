@@ -17,6 +17,5 @@ end
 
 group :test do
   gem "minitest", "~> 5.24"
-  gem 'minitest-difftastic', '~> 0.2.1'
+  gem "minitest-difftastic", "~> 0.2.1"
 end
-
